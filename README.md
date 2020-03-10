@@ -17,6 +17,9 @@ iOS 7.0以上
 运行本项目的前提是 RN 的运行环境已经安装完毕
 
 ```bash
+$ npm i --verbose
+$ react-native run-ios      // 首次运行，需要编译安装app到虚拟机，安装到iOS
+$ react-native run-android  // 首次运行，需要编译安装app到虚拟机，安装到Android
 $ npm start
 ```
 
