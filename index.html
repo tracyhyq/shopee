@@ -1,0 +1,129 @@
+<!--
+ * @description: template
+ * @author: tracyqiu
+ * @LastEditors: tracyqiu
+ * @LastEditTime: 2020-03-08 21:49:22
+ -->
+ <!DOCTYPE html>
+ <html>
+   <head>
+     <meta charset="UTF-8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+     <!-- H5访问强制竖屏 -->
+     <meta name="x5-orientation" content="portrait" />
+     <meta
+       name="viewport"
+       content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes"
+     />
+     <title>TS-React-Starter</title>
+   </head>
+   <body>
+     <div id="app">
+       <style>
+         .first-page {
+           height: 100%;
+           width: 100%;
+           overflow: hidden;
+         }
+ 
+         @-webkit-keyframes loading {
+           from {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg);
+           }
+ 
+           to {
+             -webkit-transform: rotate(360deg);
+             transform: rotate(360deg);
+           }
+         }
+ 
+         @keyframes loading {
+           from {
+             -webkit-transform: rotate(0deg);
+             transform: rotate(0deg);
+           }
+ 
+           to {
+             -webkit-transform: rotate(360deg);
+             transform: rotate(360deg);
+           }
+         }
+ 
+         .loading {
+           width: 30px;
+           height: 30px;
+           -webkit-animation: loading 1s;
+           animation: loading 1s;
+           -webkit-animation-timing-function: linear;
+           animation-timing-function: linear;
+           -webkit-animation-iteration-count: infinite;
+           animation-iteration-count: infinite;
+         }
+ 
+         .loading-wrapper {
+           width: 30px;
+           height: 30px;
+           margin: 260px auto 0;
+         }
+ 
+         .loading-word {
+           color: #333;
+           font-size: 14px;
+           margin-top: 30px;
+           text-align: center;
+         }
+       </style>
+       <div class="first-page" onclick="location.reload()">
+         <div class="loading-wrapper">
+           <!--?xml version="1.0" encoding="UTF-8"?-->
+           <svg
+             class="loading"
+             width="60px"
+             height="60px"
+             viewBox="0 0 60 60"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             xmlns:xlink="http://www.w3.org/1999/xlink"
+           >
+             <g
+               id="Artboard-Copy"
+               stroke="none"
+               stroke-width="1"
+               fill="none"
+               fill-rule="evenodd"
+               transform="translate(-345.000000, -587.000000)"
+             >
+               <g
+                 id="Group"
+                 transform="translate(291.000000, 587.000000)"
+                 fill="#FF6633"
+               >
+                 <g id="Group-2">
+                   <path
+                     d="M97.7207095,3.31442923 L96.3486386,5.9829863 C92.6479473,4.07638768 88.4496756,3 84,3 C69.0883118,3 57,15.0883118 57,30 C57,44.9116882 69.0883118,57 84,57 C98.9116882,57 111,44.9116882 111,30 L114,30 C114,46.5685425 100.568542,60 84,60 C67.4314575,60 54,46.5685425 54,30 C54,13.4314575 67.4314575,0 84,0 C88.944084,0 93.6088304,1.19598631 97.7207095,3.31442923 Z"
+                     id="Combined-Shape"
+                   ></path>
+                 </g>
+               </g>
+             </g>
+           </svg>
+         </div>
+         <div class="loading-word">点击重新加载</div>
+       </div>
+     </div>
+ 
+     <script>
+       window.pageConfig = JSON.parse(
+         '<%= htmlWebpackPlugin.options.pageConfig%>'
+       );
+       window.isProd = '<%= htmlWebpackPlugin.options.isProd%>';
+     </script>
+ 
+     <!--自动刷新脚本-->
+     <% if (htmlWebpackPlugin.options.isDev) { %>
+     <script src="http://localhost:8888/webpack-dev-server.js?_dev"></script>
+     <% } %>
+   </body>
+ </html>
+ 
