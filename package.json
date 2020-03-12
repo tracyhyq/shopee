@@ -14,15 +14,15 @@
     "test": "jest --forceExit"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.7",
     "@types/config": "0.0.36",
-    "@types/lodash": "^4.14.149",
     "@types/koa": "^2.11.2",
     "@types/koa-router": "^7.4.0",
+    "@types/lodash": "^4.14.149",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.5",
     "@types/react-native": "^0.61.0",
     "@types/react-test-renderer": "^16.9.2",
-    "axios": "^0.19.2",
     "config": "^3.3.0",
     "lodash": "^4.17.15",
     "mobx": "^5.15.4",
@@ -30,9 +30,14 @@
     "react": "^16.9.0",
     "react-dom": "^16.13.0",
     "react-native": "^0.61.5",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.3.0",
     "react-native-swipeout": "^2.3.6",
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "^0.12.2",
+    "react-navigation": "^4.2.2",
     "tslib": "^1.11.1"
   },
   "devDependencies": {
