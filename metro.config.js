@@ -1,9 +1,9 @@
 /*
  * @description: Metro configuration for React Native
- *               https://github.com/facebook/react-native     
+ *               https://facebook.github.io/metro/docs/configuration     
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-09 15:17:16
+ * @LastEditTime: 2020-03-17 21:41:45
  */
 
 module.exports = {

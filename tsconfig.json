@@ -9,7 +9,7 @@
     "emitDecoratorMetadata": false,
     "noEmitOnError": false,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "jsx": "react",
     "noEmit": true,
     "allowUnreachableCode": false,
@@ -20,14 +20,17 @@
     "skipDefaultLibCheck": true,
     "importHelpers": true,
     "lib": ["es7", "es2017.object", "dom"],
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "target": "es5",
     "paths": {
-      "*": ["*"],
-      "@components/*": ["components/*"],
-      "@styles/*": ["styles/*"],
-      "@utils/*": ["utils/*"],
-      "@assets/*": ["assets/*"]
+      "*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@I/*": ["src/interfaces/*"],
+      "@config/*": ["config/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"]
     },
     "typeRoots": ["node_modules/@types/", "./src/typings/"]
   },
@@ -35,6 +38,7 @@
     "node_modules",
     "babel.config.js",
     "metro.config.js",
-    "jest.config.js"
+    "jest.config.js",
+    "script"
   ]
 }

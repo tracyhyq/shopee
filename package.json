@@ -11,7 +11,8 @@
     "build:android": "react-native bundle --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --platform android --assets-dest ./android/app/src/main/res --dev false",
     "build": "npm run build:android && npm run build:iOS",
     "precommit": "npm run lint",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "postinstall": "node script/react-scrollview-fix.js"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.7",
@@ -31,13 +32,16 @@
     "react-dom": "^16.13.0",
     "react-native": "^0.61.5",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-largelist-v3": "^3.0.15",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.3.0",
+    "react-native-spring-scrollview": "^2.0.23",
     "react-native-swipeout": "^2.3.6",
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "^0.12.2",
     "react-navigation": "^4.2.2",
+    "react-navigation-stack": "^2.2.3",
     "tslib": "^1.11.1"
   },
   "devDependencies": {

@@ -227,6 +227,8 @@ PODS:
     - React
   - RNScreens (2.3.0):
     - React
+  - RNSpringScrollView (2.0.23):
+    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -262,6 +264,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSpringScrollView (from `../node_modules/react-native-spring-scrollview/ios`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -327,6 +330,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSpringScrollView:
+    :path: "../node_modules/react-native-spring-scrollview/ios"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -361,8 +366,9 @@ SPEC CHECKSUMS:
   RNGestureHandler: dde546180bf24af0b5f737c8ad04b6f3fa51609a
   RNReanimated: 031fe8d9ea93c2bd689a40f05320ef9d96f74d7f
   RNScreens: 03bf608b92ac0acf323f47d8f5b63a8f829340c8
+  RNSpringScrollView: 8b0af44fda8b131d845b93bf5b1d0710152e4e61
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 859b2017db1a382fedeeb914cc2f86bcb82b90b1
+PODFILE CHECKSUM: 627fb92ee5d9d0d7effddf755ea27424def3553b
 
 COCOAPODS: 1.9.0

@@ -3,7 +3,7 @@
     https://medium.com/dailyjs/webpack-4-splitchunks-plugin-d9fbbe091fd0
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-10 11:50:18
+ * @LastEditTime: 2020-03-17 12:11:01
  */
 const path = require('path');
 const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
@@ -129,6 +129,8 @@ const webpackConfig = {
         './node_modules/mobx-react/index.min.js'
       ),
       '@components': path.resolve(__dirname, './src/components'),
+      '@I': path.resolve(__dirname, './src/interfaces'),
+      '@pages': path.resolve(__dirname, './src/pages'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@styles': path.resolve(__dirname, './src/styles'),
       '@assets': path.resolve(__dirname, './src/assets'),

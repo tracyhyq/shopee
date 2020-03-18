@@ -2,7 +2,7 @@
  * @description: 防抖、截流等共工具函数
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-10 16:44:26
+ * @LastEditTime: 2020-03-18 16:56:59
  */
 
 // tslint:disable:no-any
@@ -36,10 +36,10 @@ export function throttle<T extends Function>(fn: T, during: number = 200): T {
     const context = this;
     const args = arguments;
 
-    let now = +new Date();
+    const now = +new Date();
     if (now - start < during) {
       clearTimeout(timer);
-      timer = setTimeout(function() {
+      timer = setTimeout(() => {
         start = now;
         fn.apply(context, args);
       }, during);
