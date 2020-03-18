@@ -2,7 +2,7 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 17:12:04
+ * @LastEditTime: 2020-03-18 17:16:13
  -->
 # shopee
 
@@ -57,6 +57,12 @@ $ npm run web
 启动 Webpack 后访问
 `http://localhost:8888`
 通过最后的 hash 值切换页面
+
+## 数据 Mock
+
+数据接口采用 YAPI 平台进行数据mock
+具体地址：http://yapi.demo.qunar.com/project/87591/interface/api
+
 
 ## 踩坑记录
 1、在RN中要使用 tsconfig.json 中定义的别名，必须要同步在每个相应别名的文件夹下添加一个 package.json 文件，文件中必须要有一个 name 字段，值就是别名的名称。
