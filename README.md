@@ -2,7 +2,7 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 14:42:41
+ * @LastEditTime: 2020-03-18 17:12:04
  -->
 # shopee
 
@@ -61,13 +61,15 @@ $ npm run web
 ## 踩坑记录
 1、在RN中要使用 tsconfig.json 中定义的别名，必须要同步在每个相应别名的文件夹下添加一个 package.json 文件，文件中必须要有一个 name 字段，值就是别名的名称。
 看官方文档：https://www.npmjs.com/package/react-native-typescript-transformer
+```
   For react-native you need to add one or more package.json files. These only need to contain the "name" field, and should be placed into any folders in the root of your project that you want to reference with an absolute path. The "name" field's value should be the name of the folder. So for me, I just added one file at src/package.json with the contents {"name": "src"}.
+```
 
 2、在使用 react-native-spring-scrollview 组件时，会出现以下错误：
 ```javascript
 Unable to resolve module `react-native/lib/TextInputState` from `node_modules/react-native-spring-scrollview/SpringScrollView.js`
 ```
-原因是 RN 6.0 以上 react-native/lib/TextInputState 这个路径已经变成：react-native/Libraries/Components/TextInput/TextInputState，但是作者还没发布 2.1 版本，所以采用临时方案：
+原因是 RN 0.6 以上 react-native/lib/TextInputState 这个路径已经变成：react-native/Libraries/Components/TextInput/TextInputState，但是作者还没发布 2.1 版本，所以采用临时方案：
 https://github.com/bolan9999/react-native-largelist/issues/369#issuecomment-536437355
 
 
