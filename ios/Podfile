@@ -36,6 +36,8 @@ target 'shopee' do
 
   pod 'RNSpringScrollView', :path => '../node_modules/react-native-spring-scrollview/ios'
 
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'shopeeTests' do
     inherit! :search_paths
     # Pods for testing

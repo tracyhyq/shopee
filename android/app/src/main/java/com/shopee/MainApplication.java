@@ -1,3 +1,9 @@
+/*
+ * @description: 
+ * @author: tracyqiu
+ * @LastEditors: tracyqiu
+ * @LastEditTime: 2020-03-23 19:20:44
+ */
 package com.shopee;
 
 import android.app.Application;
@@ -5,6 +11,7 @@ import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.bolan9999.SpringScrollViewPackage;
+import com.horcrux.svg.SvgPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -25,7 +32,8 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // packages.add(new MyReactNativePackage());
+          // packages.add(new SpringScrollViewPackage());
+          // packages.add(new SvgPackage());
           return packages;
         }
 

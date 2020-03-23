@@ -180,6 +180,7 @@ android {
 
 dependencies {
     implementation project(':react-native-spring-scrollview')
+    implementation project(':react-native-svg')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
     // react-navigation config. detail info: https://reactnavigation.org/docs/4.x/getting-started/

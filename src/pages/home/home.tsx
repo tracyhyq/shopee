@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, Image } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 
 interface Props {
@@ -22,6 +22,7 @@ export default class Home extends React.Component<Props, {}> {
           title="Go to Details"
           onPress={() => this.props.navigation.navigate('Detail')}
         />
+        <Image source={require('@assets/svg/home.svg')} />
         <Text>Select City</Text>
         <Button
           title="Go to City Selection"

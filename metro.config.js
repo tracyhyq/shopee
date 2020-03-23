@@ -1,9 +1,11 @@
 /*
  * @description: Metro configuration for React Native
- *               https://facebook.github.io/metro/docs/configuration     
+ *               https://facebook.github.io/metro/docs/configuration  
+ *               Svg useage
+ *               https://github.com/aeirola/react-native-svg-asset-plugin  
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-17 21:41:45
+ * @LastEditTime: 2020-03-23 19:41:43
  */
 
 module.exports = {
@@ -14,5 +16,13 @@ module.exports = {
         inlineRequires: false,
       },
     }),
+    assetPlugins: ['react-native-svg-asset-plugin'],
+    svgAssetPlugin: {
+      pngCacheDir: '.png-cache',
+      scales: [1, 2, 3],
+      output: {
+        compressionLevel: 9,
+      },
+    },
   },
 };
