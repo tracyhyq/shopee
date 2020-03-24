@@ -36,6 +36,10 @@ const { height } = Dimensions.get('screen');
 @observer
 export default class Login extends React.Component<Props, State> {
 
+  static navigationOptions = {
+    headerShown: false
+  };
+
   state = {
     localeLanguage: 'en'
   };

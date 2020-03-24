@@ -2,7 +2,7 @@
  * @description: 模拟 cookie 保存, 时间原因，暂时不考虑跨域问题
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-24 16:49:31
+ * @LastEditTime: 2020-03-24 20:05:02
  */
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -26,7 +26,7 @@ class Cookies {
 
     // 增加时长和存入时间
     const newCookie = {
-      value,
+      key: value,
       __saveTime: new Date().getTime(),
       __expire: expire
     };
@@ -39,8 +39,8 @@ class Cookies {
    * @param key
    * @returns {Promise}
    */
-   getCookie(key: string): Promise<string> {
-    return new Promise((resolve, reject)=> {
+   getCookie<T>(key: string): Promise<T | undefined> {
+    return new Promise<T | undefined>((resolve, reject)=> {
       AsyncStorage.getItem(key, (error, result)=> {
         if (!error) {
           if (result) {
@@ -49,12 +49,12 @@ class Cookies {
 
             // cookie 已过期
             if (now - cookie.__saveTime > cookie.__expire) {
-              resolve("");
+              resolve(undefined);
             } else {
-              resolve(result);
+              resolve(cookie[key] as T);
             }
           } else {
-            resolve("");
+            resolve(undefined);
           }
         } else {
           reject(error);

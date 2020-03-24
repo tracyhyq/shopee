@@ -3,6 +3,7 @@
  * @author heyanqiu
  * @date 2020-3-10
  */
+
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './home';
@@ -20,9 +21,9 @@ const AppNavigator = createStackNavigator({
   Login: LoginScreen
 }, {
   initialRouteName: 'Home',
-  navigationOptions: {
+  defaultNavigationOptions: {
     headerStyle: commonStyle.navHeader,
-    headerTitleStyle: commonStyle.navTitle,
+    headerTitleAlign: 'center',
   }
 });
 

@@ -1,11 +1,18 @@
-/***
- Use this component inside your React Native Application.
- A scrollable list with different item type
+/**
+ * @desc search and list page
+ *       对于无限下来列表的优化，对比了 RN 官方的ScrollView、Flatlist、SectionList
+ *       发现都还有优化的空间，最终选择了 recyclerlistview ，使用详情如下：
+ *       https://github.com/Flipkart/recyclerlistview 
+ * @author heyanqiu 
+ * @date 2020-3-24
  */
 import * as React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 import { NavigationScreenProp } from 'react-navigation';
+import LogoTitle from '@components/Navigator/headerTitle';
+import HeaderRight from '@components/Navigator/headerRight';
+import HeaderLeft from '@components/Navigator/headerLeft';
 
 const ViewTypes = {
   FULL: 0,
@@ -26,8 +33,13 @@ interface State {
  */
 export default class Search extends React.Component<Props, State> {
 
-  static navigationOptions = {
-    headerTitle: 'Search List'
+  static navigationOptions = ({ navigation }) => {
+    const navi = navigation;
+    return {
+      headerTitle: () => <LogoTitle />,
+      headerRight: () => <HeaderRight navigation={navi}/>,
+      headerLeft: () => <HeaderLeft navigation={navi} type="search" />
+    }
   };
 
   _layoutProvider: LayoutProvider;
