@@ -38,6 +38,9 @@ target 'shopee' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
+
+
   target 'shopeeTests' do
     inherit! :search_paths
     # Pods for testing

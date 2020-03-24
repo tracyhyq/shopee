@@ -19,7 +19,7 @@ import {
 } from 'react-native';
 import { LargeList, IndexPath } from "react-native-largelist-v3";
 import { ICity, ICityList } from '@I/home';
-import { globalStyle } from '../style';
+import { globalStyle } from '@styles/variables';
 
 export interface ICityListProps {
   data: ICityList[];

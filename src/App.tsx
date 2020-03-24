@@ -6,7 +6,7 @@
 // import * as React from 'react';
 import { AppRegistry, Platform } from 'react-native';
 // import page from './pages';
-import App from './pages/home';
+import App from './pages';
 
 // interface Props {
 //   webAPIDomain: string;

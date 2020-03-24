@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, TextProperties } from 'react-native';
-import { globalStyle } from '../style';
+import { globalStyle } from '@styles/variables';
 import { isValidElement, SFC } from 'react';
 
 export interface ITxtProps extends TextProperties {

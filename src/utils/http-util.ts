@@ -2,10 +2,11 @@
  * @description: http request util
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 16:55:53
+ * @LastEditTime: 2020-03-24 17:03:01
  */
 
 import config from '@config/index';
+import Cookies from './cookie-util';
 
 // tslint:disable:no-any
 const _timeout = 30 * 1000; // 默认网络超时 30 秒
@@ -33,6 +34,7 @@ function createTimeout(ti: number): Promise<undefined> {
 }
 
 function createFetchPromise<R>(url: string, m: string, ...opts: any): Promise<R> {
+  const token = Cookies.getCookie('x-token');
   const options: OP = {
     method: m,
     headers: opts.headers || {
@@ -40,6 +42,8 @@ function createFetchPromise<R>(url: string, m: string, ...opts: any): Promise<R>
       'Content-Type': 'application/json'
     }
   };
+
+  options.headers['x-blackcat-token'] = token;
 
   if (m.toLocaleUpperCase() === 'POST') {
     options.body = JSON.stringify(opts.body || {});

@@ -1,9 +1,29 @@
 /**
- * @desc export modules
- * @author  heyanqiu
- * @date 2020-3-9
+ * @desc Home page
+ * @author heyanqiu
+ * @date 2020-3-10
  */
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import HomeScreen from './home';
+import DetailScreen from './detail';
+import SelectCityScreen from './select-city';
+import SearchScreen from './search';
+import LoginScreen from './login';
+import commonStyle from '@styles/common';
 
-export default {
-  Home: () => require("./home").default
-};
+const AppNavigator = createStackNavigator({
+  Home: HomeScreen,
+  Detail: DetailScreen,
+  SelectCity: SelectCityScreen,
+  Search: SearchScreen,
+  Login: LoginScreen
+}, {
+  initialRouteName: 'Home',
+  navigationOptions: {
+    headerStyle: commonStyle.navHeader,
+    headerTitleStyle: commonStyle.navTitle,
+  }
+});
+
+export default createAppContainer(AppNavigator);

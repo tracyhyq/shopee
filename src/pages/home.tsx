@@ -28,6 +28,14 @@ export default class Home extends React.Component<Props, {}> {
           title="Go to City Selection"
           onPress={() => this.props.navigation.navigate('SelectCity')}
         />
+        <Button
+          title="Go to City SearchList"
+          onPress={() => this.props.navigation.navigate('Search')}
+        />
+        <Button
+          title="Go to Login"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
       </View>
     );
   }

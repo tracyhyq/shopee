@@ -2,13 +2,13 @@
  * @description: Toast Component
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 10:46:50
+ * @LastEditTime: 2020-03-24 11:23:51
  */
 
 import * as React from 'react';
 import { Component } from 'react';
 import { Animated, Dimensions, LayoutChangeEvent, View } from 'react-native';
-import { globalStyle } from '../style';
+import { globalStyle } from '@styles/variables';
 import { toastManager } from './ToastManager';
 import { Txt } from '../Txt';
 
