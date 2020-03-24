@@ -35,7 +35,7 @@
     "react-dom": "^16.13.0",
     "react-native": "^0.61.5",
     "react-native-device-info": "^5.5.3",
-    "react-native-gesture-handler": "^1.6.0",
+    "react-native-gesture-handler": "^1.6.1",
     "react-native-i18n": "^2.0.15",
     "react-native-largelist-v3": "^3.0.15",
     "react-native-picker-select": "^6.6.0",
@@ -48,6 +48,7 @@
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "^0.12.2",
     "react-navigation": "^4.2.2",
+    "react-navigation-drawer": "^2.4.7",
     "react-navigation-stack": "^2.2.3",
     "recyclerlistview": "^3.0.0",
     "tslib": "^1.11.1"

@@ -12,10 +12,10 @@ import {
   StyleSheet
 } from 'react-native';
 import { globalStyle } from '@styles/variables';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationDrawerProp } from 'react-navigation-drawer';
 
 interface Props {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationDrawerProp<{}>;
   type: string;
 }
 
@@ -28,7 +28,7 @@ export default class HeaderLeft extends React.Component<Props, {}> {
     const { navigation, type } = this.props;
 
     if (type === 'search') {
-      console.log('打开抽屉');
+      navigation.toggleDrawer();
     } else {
       navigation.navigate('Home');
     }

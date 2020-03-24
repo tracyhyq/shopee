@@ -9,7 +9,7 @@
 import * as React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationDrawerProp } from 'react-navigation-drawer';
 import LogoTitle from '@components/Navigator/headerTitle';
 import HeaderRight from '@components/Navigator/headerRight';
 import HeaderLeft from '@components/Navigator/headerLeft';
@@ -21,7 +21,7 @@ const ViewTypes = {
 };
 
 interface Props {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationDrawerProp<{}>;
 }
 
 interface State {
