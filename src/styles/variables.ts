@@ -2,7 +2,7 @@
  * @description: @styles/variables
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-24 17:32:27
+ * @LastEditTime: 2020-03-25 13:42:19
  */
 
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
@@ -68,6 +68,8 @@ export const globalStyle = {
      * 按下时候的背景颜色
      */
     pressNormal: '#f8f8f8',
+    active: '#E5F7A9',
+    fontOrIconDisable: '#666',
   },
   fontSize: {
     xs: 12 / FontScale,

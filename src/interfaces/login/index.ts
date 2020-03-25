@@ -2,17 +2,17 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-24 17:29:49
+ * @LastEditTime: 2020-03-25 09:33:41
  */
 
 export interface User {
   id: number;
   username: string;
-  email: string;
+  email?: string;
   avatar: string;
 }
 
-export interface AuthRes {
+export interface Auth {
   token: string;
   user: User;
 }

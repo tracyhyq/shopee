@@ -19,6 +19,7 @@
         "variable-declaration": "nospace"
       }
     ],
+    "array-type": false,
     "variable-name": [true, "ban-keywords"],
     "max-classes-per-file": false,
     "whitespace": false,

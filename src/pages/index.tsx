@@ -18,6 +18,8 @@ import SearchFilter from './search/searchFilter';
 import LoginScreen from './login';
 import commonStyle from '@styles/common';
 
+const DrawerWidth = Dimensions.get('window').width * 0.7;
+
 const searchStackNavigator = createStackNavigator({
   Search: SearchScreen,
 },{
@@ -27,14 +29,20 @@ const searchStackNavigator = createStackNavigator({
   }
 });
 
+/**
+ *  more drawer config
+ *  https://reactnavigation.org/docs/4.x/drawer-navigator
+ */
 const drawerNavigator = createDrawerNavigator({
   SearchDrawer: searchStackNavigator,
 }, {
   navigationOptions: {
     headerShown: false
   },
+  drawerType: "slide",
+  overlayColor: "transparent",
   contentComponent: SearchFilter,
-  drawerWidth: Dimensions.get('window').width - 130,
+  drawerWidth: DrawerWidth,
 });
 
 const AppNavigator = createStackNavigator({

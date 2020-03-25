@@ -102,8 +102,9 @@ export default class Login extends React.Component<Props, State> {
 
     const res = await loginStore.doLogin();
     if (res) {
-      Cookies.setCookie('x-token', res.token);
-      Cookies.setCookie('user', JSON.stringify(res.user));
+      const ressult  = res.data;
+      Cookies.setCookie('x-token', ressult.token);
+      Cookies.setCookie('user', JSON.stringify(ressult.user));
       navigation.navigate('Search');
     } else {
       toast('登录失败!');
