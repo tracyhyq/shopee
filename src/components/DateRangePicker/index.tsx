@@ -90,14 +90,14 @@ export class DateRangePicker extends Component<
   handleOk = async () => {
     let [startTime, endTime] = this.selectedDateRange;
 
-    let FORMAT = 'YYYY/MM/DD';
+    let FORMAT = 'yyyy/MM/dd';
     if (this.props.mode === 'datetime') {
-      FORMAT = 'YYYY/MM/DD HH:mm';
+      FORMAT = 'yyyy/MM/dd HH:mm';
     }
-    startTime = format(startTime, FORMAT);
-    endTime = format(endTime, FORMAT);
+    startTime = format(new Date(startTime), FORMAT);
+    endTime = format(new Date(endTime), FORMAT);
 
-    if (getTime(startTime) > getTime(endTime)) {
+    if (getTime(new Date(startTime)) > getTime(new Date(endTime))) {
       toast('结束日期不能小于开始日期');
       return;
     }
@@ -121,7 +121,7 @@ export class DateRangePicker extends Component<
     }
   };
 
-  componentWillReceiveProps(nexProps: IDateRangePickerProps) {
+  UNSAFE_componentWillReceiveProps(nexProps: IDateRangePickerProps) {
     const { visible } = nexProps;
     if (visible) {
       this.show();

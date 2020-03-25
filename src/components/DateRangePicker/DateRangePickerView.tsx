@@ -7,8 +7,8 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { globalStyle } from '../style';
-import { format, parse } from 'date-fns';
+import { globalStyle } from '@styles/variables';
+import { format } from 'date-fns';
 import { DatePickerView } from '../DatePickerView';
 import { StaticRender } from '../Picker/StaticRender';
 import { Txt } from '../Txt';
@@ -131,14 +131,15 @@ export class DateRangePickerView extends Component<
     } = this.props;
     const { currentTab } = this.state;
     const [startTime, endTime] = value;
-    const startValue =
-      (this.selectedStartValue && parse(this.selectedStartValue)) || startTime;
-    const endValue =
-      (this.selectedEndValue && parse(this.selectedEndValue)) || endTime;
-    let FORMAT = 'YYYY/MM/DD';
+    let FORMAT = 'yyyy/MM/dd';
     if (this.props.mode === 'datetime') {
-      FORMAT = 'YYYY/MM/DD HH:mm';
+      FORMAT = 'yyyy/MM/dd HH:mm';
     }
+
+    const startValue =
+      (this.selectedStartValue && format(new Date(this.selectedStartValue), FORMAT)) || startTime;
+    const endValue =
+      (this.selectedEndValue && format(new Date(this.selectedEndValue), FORMAT)) || endTime;
     return (
       <View style={style}>
         <View>
@@ -162,7 +163,7 @@ export class DateRangePickerView extends Component<
                     currentTab === TabItem.START ? styles.activeTxt : null,
                   ]}
                 >
-                  {format(startValue, FORMAT)}
+                  {format(new Date(startValue), FORMAT)}
                 </Txt>
               </View>
             </TouchableOpacity>
@@ -190,7 +191,7 @@ export class DateRangePickerView extends Component<
                     currentTab === TabItem.END ? styles.activeTxt : null,
                   ]}
                 >
-                  {format(endValue, FORMAT)}
+                  {format(new Date(endValue), FORMAT)}
                 </Txt>
               </View>
             </TouchableOpacity>
@@ -205,7 +206,7 @@ export class DateRangePickerView extends Component<
               <StaticRender>
                 <DatePickerView
                   onChange={this.onStartPickerChange}
-                  value={startValue}
+                  value={new Date(startValue)}
                   minDate={startMinDate}
                   maxDate={startMaxDate}
                   {...otherProps}
@@ -221,7 +222,7 @@ export class DateRangePickerView extends Component<
               <StaticRender>
                 <DatePickerView
                   onChange={this.onEndPickerChange}
-                  value={endValue}
+                  value={new Date(endValue)}
                   minDate={endMinDate}
                   maxDate={endMaxDate}
                   {...otherProps}

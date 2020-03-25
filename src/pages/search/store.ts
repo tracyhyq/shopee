@@ -2,7 +2,7 @@
  * @description: search store
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-25 14:18:52
+ * @LastEditTime: 2020-03-25 17:47:00
  */
 
 import { observable, action, computed } from 'mobx';
@@ -129,7 +129,9 @@ class LoginStore {
 
   @action
   async getEvents() {
-    const res = await GET<ISearchRes>('/api/v1/events');
+    const res = await GET<ISearchRes>('/api/v1/events', {
+      body: this.filter
+    });
 
     if (res && res.data) {
       this.events = res.data.events;

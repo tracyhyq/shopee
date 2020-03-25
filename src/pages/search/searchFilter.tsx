@@ -14,16 +14,27 @@ import {
   TouchableOpacity,
   Image
 } from "react-native";
-import { DrawerContentComponentProps } from 'react-navigation-drawer';
+import { DrawerContentComponentProps, NavigationDrawerProp } from 'react-navigation-drawer';
 import { toast } from '@components/Toast';
 import { globalStyle } from '@styles/variables';
 import { observer } from 'mobx-react';
 import searchStore from './store';
-import { getTimeByKey } from '@utils/date-util';
+import { getTimeByKey, getEarlyMorning, getLastest } from '@utils/date-util';
 import { Channel } from '@I/search';
+import { DateRangePicker } from '@components/DateRangePicker';
+import { 
+  startOfToday,
+  endOfToday,
+  format,
+} from 'date-fns';
 
 interface Props extends DrawerContentComponentProps {
+  navigation: NavigationDrawerProp<{}>;
+}
 
+interface State {
+  visible: boolean;
+  dateValue: Date[];
 }
 
 const dateFilter: {
@@ -38,21 +49,52 @@ const dateFilter: {
 };
 
 @observer
-export default class SearchFilter extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props);
-  }
+export default class SearchFilter extends React.Component<Props, State> {
+
+  state = {
+    visible: false,
+    dateValue: [
+      new Date(format(startOfToday(), 'yyyy/MM/dd')),
+      new Date(format(endOfToday(), 'yyyy/MM/dd')),
+    ]
+  };
 
   /**
    * 时间filterItem press
    */
   datePress = (dateType: string) => {
+    // 防止重复点击
+    if (searchStore.dateSelect === dateType) {
+      return;
+    }
     const res = getTimeByKey(dateType);
     searchStore.dateSelect = dateType;
     searchStore.filter.after = res.after;
     searchStore.filter.before = res.before;
     searchStore.filter.afterText = res.afterText;
     searchStore.filter.beforeText = res.beforeText;
+  }
+
+  onDateRangePickerConfirm = (dateArr: string[]) => {
+    // 注意⚠️： 在RN 中 Date 构造函数只接受 YYYY/MM/DD HH:mm:ss 格式的日期字符串，而不能接受 YYYY-MM-DD HH:mm:ss
+    const [start, end] = dateArr;
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    this.setState({
+      dateValue: [startDate, endDate],
+    });
+
+    searchStore.filter.after = getEarlyMorning(startDate) + '';
+    searchStore.filter.before = getLastest(endDate) + '';
+    searchStore.filter.afterText = format(startDate, 'MM/dd/yyyy');
+    searchStore.filter.beforeText = format(endDate, 'MM/dd/yyyy');
+  }
+
+  toggleDatePicker = () => {
+    this.setState({
+      visible: !this.state.visible
+    });
   }
 
   /**
@@ -84,11 +126,42 @@ export default class SearchFilter extends React.Component<Props, {}> {
   /**
    * do Search
    */
-  doSearch = () => {
+  doSearch = async () => {
     if (!searchStore.canSearch) {
       toast('请选择筛选条件!');
       return;
     }
+
+    await searchStore.getEvents();
+    console.log(searchStore.events);
+    this.props.navigation.toggleDrawer();
+  }
+
+  renderRangeDateInput = () => {
+    if (searchStore.dateSelect !== 'later') {
+      return null;
+    }
+
+    return (
+      <View style={styles.inputContainer}>
+        <TouchableOpacity style={{flex: 1}} onPress={this.toggleDatePicker}>
+          <View style={styles.trangle} />
+          <View style={styles.input}>
+            <Image
+              source={require('@assets/svg/date-from.svg')}
+              style={styles.inputLogo}
+            />
+            <Text style={styles.inputText}>{searchStore.filter.afterText}</Text>
+            <Image
+              source={require('@assets/svg/date-to.svg')}
+              style={styles.inputLogo}
+            />
+            <Text style={styles.op}>-</Text>
+            <Text style={styles.inputText}>{searchStore.filter.beforeText}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
   }
 
   renderDateItems = () => {
@@ -142,10 +215,10 @@ export default class SearchFilter extends React.Component<Props, {}> {
           </Text>
         </TouchableOpacity>
         {
-          channels.map((channel) => {
+          channels.map((channel, index) => {
             return (
               <TouchableOpacity
-                key={channel.id}
+                key={index}
                 onPress={() => this.channelPress(channel)}
               >
                 <Text
@@ -177,6 +250,7 @@ export default class SearchFilter extends React.Component<Props, {}> {
             <View style={[styles.line, styles.dateLine]}/>
           </View>
           { this.renderDateItems() }
+          { this.renderRangeDateInput() }
         </View>
         <View style={styles.channelContainer}>
           <View>
@@ -223,6 +297,15 @@ export default class SearchFilter extends React.Component<Props, {}> {
             </View>
           ) : null
         }
+
+        <DateRangePicker
+          visible={this.state.visible}
+          mode="date"
+          title="请选择日期范围"
+          value={this.state.dateValue}
+          onOk={this.onDateRangePickerConfirm}
+          onClose={this.toggleDatePicker}
+        />
       </View>
     );
   }
@@ -337,5 +420,47 @@ const styles = StyleSheet.create({
     fontSize: globalStyle.fontSize.xs,
     color: globalStyle.color.tint,
     textAlign: 'center'
+  },
+  inputContainer: {
+    height: globalStyle.scale.scaleHeight(40),
+    backgroundColor: globalStyle.color.white,
+    marginLeft: globalStyle.scale.scaleWidth(16),
+    marginRight: globalStyle.scale.scaleWidth(16),
+    marginTop: globalStyle.scale.scaleHeight(15),
+    paddingLeft: globalStyle.scale.scaleWidth(8),
+    paddingRight: globalStyle.scale.scaleWidth(8)
+  },
+  trangle: {
+    width: 0,
+    height: 0,
+    borderTopWidth: 5,
+    borderTopColor: 'transparent',
+    borderRightWidth: 10,
+    borderRightColor: 'transparent',
+    borderLeftWidth: 10,
+    borderLeftColor: 'transparent',
+    borderBottomWidth: 10,
+    borderBottomColor: globalStyle.color.white,
+    marginTop: globalStyle.scale.scaleHeight(-10),
+    marginLeft: globalStyle.scale.scaleWidth(25)
+  },
+  input: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  inputLogo: {
+    width: 12,
+    height: 12,
+    tintColor: globalStyle.color.lighter
+  },
+  inputText: {
+    width: globalStyle.scale.scaleWidth(200),
+    marginLeft: globalStyle.scale.scaleWidth(5),
+    textAlign: 'center'
+  },
+  op: {
+    marginLeft: globalStyle.scale.scaleWidth(10)
   }
 });

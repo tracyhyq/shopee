@@ -2,7 +2,7 @@
  * @description: 模拟 cookie 保存, 时间原因，暂时不考虑跨域问题
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-24 20:05:02
+ * @LastEditTime: 2020-03-25 19:13:24
  */
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -26,7 +26,7 @@ class Cookies {
 
     // 增加时长和存入时间
     const newCookie = {
-      key: value,
+      __key: value,
       __saveTime: new Date().getTime(),
       __expire: expire
     };
@@ -39,9 +39,9 @@ class Cookies {
    * @param key
    * @returns {Promise}
    */
-   getCookie<T>(key: string): Promise<T | undefined> {
-    return new Promise<T | undefined>((resolve, reject)=> {
-      AsyncStorage.getItem(key, (error, result)=> {
+   getCookie<T>(key: string): Promise<string> {
+    return new Promise<string>((resolve, reject)=> {
+      AsyncStorage.getItem(key, async (error, result) => {
         if (!error) {
           if (result) {
             const cookie = JSON.parse(result);
@@ -49,16 +49,20 @@ class Cookies {
 
             // cookie 已过期
             if (now - cookie.__saveTime > cookie.__expire) {
-              resolve(undefined);
+              resolve("");
+              await this.removeCookie(key);
             } else {
-              resolve(cookie[key] as T);
+              const v = cookie.__key;
+              resolve(v);
             }
           } else {
-            resolve(undefined);
+            resolve("");
+            await this.removeCookie(key);
           }
         } else {
           reject(error);
           console.error(error);
+          await this.removeCookie(key);
         }
       });
     });
@@ -71,7 +75,7 @@ class Cookies {
    */
   removeCookie(
     key: string,
-    callback: (error?: Error | undefined) => void | undefined
+    callback?: (error?: Error | undefined) => void | undefined
   ) {
     if (!key)return;
     AsyncStorage.removeItem(key, callback);

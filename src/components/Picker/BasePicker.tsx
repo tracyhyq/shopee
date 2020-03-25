@@ -226,7 +226,7 @@ export class BasePicker extends Component<IBasePickerProps, IState> {
   }
 
   clearScrollToIndexTimer() {
-    if (this.clearScrollToIndexTimer) {
+    if (this.scrollToIndexTimer) {
       clearTimeout(this.scrollToIndexTimer);
     }
   }
@@ -296,7 +296,7 @@ export class BasePicker extends Component<IBasePickerProps, IState> {
     };
   }
 
-  componentWillReceiveProps(nextProps: IBasePickerProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: IBasePickerProps) {
     const idx = nextProps.activeIndex || 0;
     if (idx !== this.state.activeIndex) {
       this.scrollToIndex(idx);

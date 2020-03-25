@@ -83,7 +83,7 @@ export class DatePickerView extends React.Component<
   defaultMinDate?: Date;
   defaultMaxDate?: Date;
 
-  componentWillReceiveProps(nextProps: IdatePickerViewPropsExt) {
+  UNSAFE_componentWillReceiveProps(nextProps: IdatePickerViewPropsExt) {
     if ('value' in nextProps) {
       this.setState({
         date: nextProps.value || nextProps.defaultDate,
@@ -147,7 +147,7 @@ export class DatePickerView extends React.Component<
     });
 
     if (this.props.onChange) {
-      this.props.onChange(format(newValue, 'YYYY/MM/DD HH:mm:ss'), newValue);
+      this.props.onChange(format(newValue, 'yyyy/MM/dd HH:mm:ss'), newValue);
     }
   };
 

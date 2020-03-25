@@ -21,18 +21,28 @@ interface Props {
   navigation: NavigationScreenProp<{}>;
 }
 
-export default class HeaderRight extends React.Component<Props, {}> {
-  user: User | undefined = undefined;
-  constructor(props: Props) {
-    super(props);
+interface State {
+  user: User | undefined;
+}
 
-    Cookies.getCookie<User>('user').then((u) => {
-      this.user = u;
-    });
+export default class HeaderRight extends React.Component<Props, State> {
+
+  state = {
+    user: undefined
+  };
+
+  async componentDidMount() {
+    const u = await Cookies.getCookie('user');
+    if (u) {
+      const user: User = JSON.parse(u);
+      this.setState({
+        user
+      });
+    }
   }
 
   userInfoPress = () => {
-    const { user } = this;
+    const { user } = this.state;
     const { navigation } = this.props;
 
     if (user) {
@@ -43,7 +53,7 @@ export default class HeaderRight extends React.Component<Props, {}> {
   }
 
   render() {
-    const { user } = this;
+    const { user } = this.state;
     return (
       <View>
         <TouchableOpacity onPress={this.userInfoPress}>
@@ -51,7 +61,7 @@ export default class HeaderRight extends React.Component<Props, {}> {
             user ?
             (
               <Image
-                source={{uri: user.avatar}}
+                source={require('@assets/imgs/gmap.png')}
                 style={styles.logo}
               />
             ) :
