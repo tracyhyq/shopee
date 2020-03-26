@@ -2,7 +2,7 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 21:19:52
+ * @LastEditTime: 2020-03-27 00:24:47
  */
 
 import { StyleSheet } from "react-native";
@@ -30,8 +30,6 @@ export default StyleSheet.create({
     paddingLeft: globalStyle.scale.scaleWidth(20),
   },
   scrollContainer: {
-    // flex: 1,
-    // minHeight: height,
   },
   tabsContainer: {
     flexDirection: 'row',
@@ -42,15 +40,40 @@ export default StyleSheet.create({
   detailContainer: {
   },
   participantsContainer: {
-    height: globalStyle.scale.scaleHeight(150),
-    backgroundColor: 'yellow'
   },
   commentsContainer: {
-    height: globalStyle.scale.scaleHeight(300),
-    backgroundColor: 'blue'
   },
   btnsContainer: {
     height: globalStyle.scale.scaleHeight(60),
-    backgroundColor: 'green'
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  joinContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: globalStyle.scale.scaleHeight(60),
+  },
+  joinLeftContainer: {
+    width: '55%',
+    backgroundColor: globalStyle.color.tint,
+  },
+  joinRightContainer: {
+    width: '45%',
+    backgroundColor: globalStyle.color.lighter
+  },
+  btnIcon: {
+    width: 24,
+    height: 24,
+    tintColor: globalStyle.color.strong,
+    marginRight: globalStyle.scale.scaleWidth(50)
+  },
+  likeIcon: {
+    marginLeft: globalStyle.scale.scaleWidth(50)
+  },
+  joinText: {
+    fontSize: globalStyle.fontSize.n,
+    color: '#788C36',
+    marginRight: globalStyle.scale.scaleWidth(30)
   }
 });

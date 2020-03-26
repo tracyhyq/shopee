@@ -2,7 +2,7 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 20:32:13
+ * @LastEditTime: 2020-03-27 00:25:21
  */
 
 import { StyleSheet } from "react-native";
@@ -10,7 +10,6 @@ import { globalStyle } from '@styles/variables';
 
 export default StyleSheet.create({
   headerContainer: {
-    flex: 1
   },
   headerChannelText: {
     maxWidth: 150,

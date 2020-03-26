@@ -2,7 +2,7 @@
  * @description: 
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 20:44:53
+ * @LastEditTime: 2020-03-27 00:23:56
  */
 
 import { StyleSheet } from "react-native";
@@ -16,10 +16,9 @@ export default StyleSheet.create({
     backgroundColor: globalStyle.color.white
   },
   tabTouchContainer: {
-    width: '33%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
   },
   textActive: {
     color: globalStyle.color.other,
@@ -32,6 +31,8 @@ export default StyleSheet.create({
   tabText: {
     fontSize: globalStyle.fontSize.xs,
     color: globalStyle.color.tint,
+    marginLeft: globalStyle.scale.scaleWidth(25),
+    marginRight: globalStyle.scale.scaleWidth(30),
   },
   tabSplit: {
     color: globalStyle.color.disable

@@ -2,7 +2,7 @@
  * @description: @styles/variables
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 19:39:38
+ * @LastEditTime: 2020-03-26 22:44:22
  */
 
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
@@ -73,6 +73,7 @@ export const globalStyle = {
     other: '#AECB4F'
   },
   fontSize: {
+    xxs: 10 / FontScale,
     xs: 12 / FontScale,
     s: 14 / FontScale,
     /* 正常字体大小 */

@@ -2,10 +2,10 @@
  * @description: detail store
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 19:11:35
+ * @LastEditTime: 2020-03-26 21:28:29
  */
 
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import { GET } from '@utils/http-util';
 import { IResponse } from '@I/index';
 import { IEvent } from '@I/search';

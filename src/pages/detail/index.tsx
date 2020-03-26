@@ -8,10 +8,10 @@ import {
   Text,
   View,
   ScrollView,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
   LayoutChangeEvent,
-  LayoutRectangle
+  LayoutRectangle,
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import { NavigationScreenProp } from 'react-navigation';
 import LogoTitle from '@components/Navigator/headerTitle';
@@ -23,6 +23,9 @@ import styles from './style';
 import Header from './Header';
 import Tab, { TabItem } from './Tab';
 import Content from './Content';
+import Liker from './Liker';
+import CommentComponent from './Comment';
+import { Comment } from '@I/detail';
 
 interface Props {
   navigation: NavigationScreenProp<{}>;
@@ -31,6 +34,7 @@ interface Props {
 interface State {
   eventId: number;
   currentTab: string;
+  btnStyle: string;
 }
 
 const TabMap: TabItem[] = [
@@ -84,6 +88,7 @@ export default class Detail extends React.Component<Props, State> {
     this.state = {
       eventId,
       currentTab: 'Details',
+      btnStyle: 'join',
     };
   }
 
@@ -126,49 +131,127 @@ export default class Detail extends React.Component<Props, State> {
   }
 
   renderParticipants = () => {
+    const { likes, participants } = detailStore;
     return (
       <View
         style={[styles.participantsContainer, styles.line, styles.padding]}
         onLayout={(e: LayoutChangeEvent) => this.layout(e, 'Participants')}
       >
-        <Text>Participants Container</Text>
+        <Liker
+          dataSource={participants}
+          logo={require('@assets/svg/check-outline.svg')}
+          title="going"
+        />
+        <View style={styles.marginLine} />
+        <Liker
+          dataSource={likes}
+          logo={require('@assets/svg/like-outline.svg')}
+          title="likes"
+        />
       </View>
     );
   }
 
   renderComments = () => {
+    const { comments } = detailStore;
     return (
       <View
         style={[styles.commentsContainer, styles.padding]}
         onLayout={(e: LayoutChangeEvent) => this.layout(e, 'Comments')}
       >
-        <Text>Comments Container</Text>
+        {
+          comments.map((item, index) => {
+            return (
+              <CommentComponent
+                key={`${item.id}-${index}`}
+                c={item}
+                onCommentPress={this.replyComment}
+              />
+            );
+          })
+        }
       </View>
     );
   }
 
   renderBtns = () => {
+    const { btnStyle } = this.state;
     return (
-      <View style={styles.btnsContainer} />
+      <View>
+        {
+          btnStyle === 'join' ? 
+          (
+            <View style={styles.btnsContainer}>
+              <View style={[styles.joinContainer, styles.joinLeftContainer]}>
+                <TouchableOpacity onPress={() => this.replyComment()}>
+                  <Image
+                    source={require('@assets/svg/comment-single.svg')}
+                    style={styles.btnIcon}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.like()}>
+                  <Image
+                    source={require('@assets/svg/like-outline.svg')}
+                    style={[styles.btnIcon, styles.likeIcon]}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.joinContainer, styles.joinRightContainer]}>
+                <TouchableOpacity
+                  onPress={() => this.join()}
+                  style={[styles.joinContainer, styles.joinRightContainer]}
+                >
+                  <Image
+                    source={require('@assets/svg/check-outline.svg')}
+                    style={styles.btnIcon}
+                  />
+                  <Text style={styles.joinText}>Join</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : 
+          (
+            <View></View>
+          )
+        }
+      </View>
     );
   }
-  
-  onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    // const { y } = e.nativeEvent.contentOffset;
-    // if (this.$scrollView.current) {
-    //   if(y < 50){
-    //     this.$scrollView.current.scrollTo({x: 0, y: 0, animated: true});
-    //   } else if(y < 100){
-    //     this.$scrollView.current.scrollTo({x: 0, y: 100, animated: true});
-    //   }
-    // }
+
+  /**
+   * reply this event or somebody's comment
+   */
+  replyComment = (comment?: Comment) => {
+    this.setState({
+      btnStyle: 'reply'
+    });
   }
 
+  /**
+   * like event
+   */
+  like = () => {
+
+  }
+
+  /**
+   * join event
+   */
+  join = () => {
+
+  }
+
+  /**
+   * Section Layout init position
+   */
   layout = (e: LayoutChangeEvent, tabName: string) => {
     const { nativeEvent } = e;
     layoutMap[tabName] = nativeEvent.layout;
   }
 
+  /**
+   * tab switch
+   */
   tabPress = (tabName: string) => {
     const currentLayout = layoutMap[tabName];
     const tabHeight = layoutMap.Tab.height;
@@ -191,7 +274,6 @@ export default class Detail extends React.Component<Props, State> {
           stickyHeaderIndices={[1]}
           showsVerticalScrollIndicator={false}
           overScrollMode={'never'}
-          onScrollEndDrag={this.onScroll}
           ref={this.$scrollView}
         >
           <Header evt={detailStore.evt}/>
