@@ -2,7 +2,7 @@
  * @description: 模拟 cookie 保存, 时间原因，暂时不考虑跨域问题
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-25 19:13:24
+ * @LastEditTime: 2020-03-25 19:21:33
  */
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -39,7 +39,7 @@ class Cookies {
    * @param key
    * @returns {Promise}
    */
-   getCookie<T>(key: string): Promise<string> {
+   getCookie(key: string): Promise<string> {
     return new Promise<string>((resolve, reject)=> {
       AsyncStorage.getItem(key, async (error, result) => {
         if (!error) {

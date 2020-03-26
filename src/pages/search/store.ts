@@ -2,13 +2,14 @@
  * @description: search store
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-25 17:47:00
+ * @LastEditTime: 2020-03-26 09:40:34
  */
 
 import { observable, action, computed } from 'mobx';
 import { GET } from '@utils/http-util';
 import { Channel, IFilter, IEvent, SearchResult } from '@I/search';
 import { IResponse } from '@I/index';
+import { DataProvider } from "recyclerlistview";
 
 interface IChannelRes extends IResponse {
   data: {
@@ -21,6 +22,10 @@ interface ISearchRes extends IResponse {
 }
 
 class LoginStore {
+  dataProvider = new DataProvider((r1, r2) => {
+    return r1 !== r2;
+  });
+
   /**
    * 筛选条件
    */
@@ -47,8 +52,20 @@ class LoginStore {
   @observable
   events: IEvent[] = [];
 
+  /**
+   * 用作无限下拉分页加载
+   */
+  @observable
+  eventsPool: IEvent[] = [];
+
+  @observable
+  _dataProvider: DataProvider = this.dataProvider.cloneWithRows([]);
+
   @observable
   hasMore = true;
+  
+  @observable
+  offset = 0;
 
   /**
    * 筛选结果条数
@@ -113,6 +130,25 @@ class LoginStore {
 
   findChannelById(id: number) {
     return this.channels.filter((item) => item.id === id);
+  }
+
+  /**
+   * 清空筛选条件
+   */
+  @action
+  reset() {
+    this.filter = {
+      after: "",
+      before: "",
+      afterText: "",
+      beforeText: "",
+      channels: [],
+      offset: 0,
+      limit: 25,
+    };
+    this.dateSelect = "";
+    this.resultSearchBar = false;
+    this.eventsPool = [];
   }
 
   /**

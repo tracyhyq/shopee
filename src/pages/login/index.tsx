@@ -21,7 +21,6 @@ import { globalStyle } from '@styles/variables';
 import Input from '@components/Input';
 import { toast } from '@components/Toast';
 import Cookies from '@utils/cookie-util';
-import { User } from '@I/login';
 import loginStore from './store';
 
 interface Props {
@@ -106,9 +105,7 @@ export default class Login extends React.Component<Props, State> {
       const result  = res.data;
       Cookies.setCookie('x-token', result.token);
       Cookies.setCookie('user', JSON.stringify(result.user));
-      const u = await Cookies.getCookie<User>('user');
-      console.log(u);
-      navigation.navigate('Search');
+      navigation.navigate('Search', { clearFilter: true });
     } else {
       toast('登录失败!');
     }

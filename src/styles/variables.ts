@@ -2,7 +2,7 @@
  * @description: @styles/variables
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-25 13:42:19
+ * @LastEditTime: 2020-03-25 22:30:35
  */
 
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
@@ -76,6 +76,7 @@ export const globalStyle = {
     s: 14 / FontScale,
     /* 正常字体大小 */
     n: 16 / FontScale,
+    xn: 18 / FontScale,
     l: 24 / FontScale,
     xl: 30 / FontScale,
   },

@@ -132,8 +132,11 @@ export default class SearchFilter extends React.Component<Props, State> {
       return;
     }
 
+    searchStore.eventsPool = [];
     await searchStore.getEvents();
-    console.log(searchStore.events);
+    searchStore.eventsPool = searchStore.eventsPool.concat(searchStore.events.slice());
+    searchStore._dataProvider = searchStore.dataProvider.cloneWithRows([]);
+    searchStore.resultSearchBar = true;
     this.props.navigation.toggleDrawer();
   }
 
