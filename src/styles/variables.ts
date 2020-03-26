@@ -2,7 +2,7 @@
  * @description: @styles/variables
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-25 22:30:35
+ * @LastEditTime: 2020-03-26 19:39:38
  */
 
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
@@ -70,6 +70,7 @@ export const globalStyle = {
     pressNormal: '#f8f8f8',
     active: '#E5F7A9',
     fontOrIconDisable: '#666',
+    other: '#AECB4F'
   },
   fontSize: {
     xs: 12 / FontScale,
@@ -78,7 +79,7 @@ export const globalStyle = {
     n: 16 / FontScale,
     xn: 18 / FontScale,
     l: 24 / FontScale,
-    xl: 30 / FontScale,
+    xl: 32 / FontScale,
   },
   window: {
     ...window,
