@@ -46,7 +46,7 @@
     "react-native-spring-scrollview": "^2.0.23",
     "react-native-svg": "^12.0.3",
     "react-native-swipeout": "^2.3.6",
-    "react-native-swiper": "^1.5.14",
+    "react-native-swiper": "^1.6.0-nightly.5",
     "react-native-typescript-transformer": "^1.2.13",
     "react-native-web": "^0.12.2",
     "react-navigation": "^4.2.2",
