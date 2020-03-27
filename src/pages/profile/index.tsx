@@ -184,9 +184,26 @@ export default class Detail extends React.Component<Props, State> {
     }
   }
 
+  renderHeaderComponent = () => {
+    return (
+      <View>
+        { this.renderHeader() }
+        { this.renderTabs() }
+      </View>
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
+        {/* <FlatList
+          data={profileStore.eventsPool}
+          renderItem={({ item }) => this.renderItem(item)}
+          ListEmptyComponent={this.renderEmpty}
+          ListFooterComponent={this.renderFooter}
+          onEndReached={this.loadMore}
+          ListHeaderComponent={this.renderHeaderComponent}
+        /> */}
         <ScrollView
           stickyHeaderIndices={[1]}
           showsVerticalScrollIndicator={false}
