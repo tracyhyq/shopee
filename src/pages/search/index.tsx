@@ -23,6 +23,7 @@ import searchStore from './store';
 import { observer } from 'mobx-react';
 import { IEvent } from '@I/search';
 import styles from './style';
+import EventItem from './EventItem';
 
 const ViewTypes = {
   FULL: 0,
@@ -133,81 +134,10 @@ export default class Search extends React.Component<Props, State> {
   _renderItem = (evt: IEvent) => {
     return (
       <View style={styles.itemContainer}>
-        <TouchableOpacity onPress={() => this.goDetail(evt.id)}>
-          <View style={styles.itemHeader}>
-            <View style={styles.leftWrap}>
-              <Image
-                source={require('@assets/imgs/gmap.png')}
-                style={styles.userIcon}
-              />
-              <Text style={styles.username}>{evt.creator.username}</Text>
-            </View>
-            <View style={styles.rightWrap}>
-              <Text style={styles.channelText}>{evt.channel.name}</Text>
-            </View>
-          </View>
-          <View style={styles.itemBody}>
-            <View 
-              style={[
-                styles.bodyLeft,
-                {
-                  width: evt.images && evt.images.length ? '80%' : '100%'
-                }
-              ]}
-            >
-              <Text
-                style={styles.title}
-                numberOfLines={2}
-                ellipsizeMode='tail'
-              >
-                {evt.name}
-              </Text>
-              <View style={styles.timeBar}>
-                <Image
-                  source={require('@assets/svg/time.svg')}
-                  style={styles.timeIcon}
-                />
-                <Text style={styles.timeText}>
-                  {evt.begin_time} - {evt.end_time}
-                </Text>
-              </View>
-              <Text
-                style={styles.content}
-                numberOfLines={3}
-                ellipsizeMode='tail'
-              >
-                {evt.description}
-              </Text>
-              <View style={styles.likesBar}>
-                <Image
-                  source={require('@assets/svg/check-outline.svg')}
-                  style={styles.likeBarIcon}
-                />
-                <Text style={[styles.likeBarText, styles.likeText]}>
-                  {evt.goings_count} Going
-                </Text>
-                <Image
-                  source={require('@assets/svg/like-outline.svg')}
-                  style={styles.likeBarIcon}
-                />
-                <Text style={styles.likeBarText}>
-                  {evt.likes_count} Likes
-                </Text>
-              </View>
-            </View>
-            {
-              evt.images && evt.images.length ?
-              (
-                <View style={styles.bodyRight}>
-                  <Image
-                    source={require('@assets/imgs/gmap.png')}
-                    style={styles.eventImg}
-                  />
-                </View>
-              ) : null
-            }
-          </View>
-        </TouchableOpacity>
+        <EventItem
+          evt={evt}
+          onEventPress={this.goDetail}
+        />
       </View>
     );
   }

@@ -17,10 +17,33 @@ interface Props {
   title: string;
 }
 
-export default class DetailHeader extends React.PureComponent<Props, {}> {
+interface State {
+  data: any[];
+}
+
+export default class DetailHeader extends React.Component<Props, State> {
+
+  constructor(props: Props) {
+    super(props);
+
+    this.state = {
+      data: this.props.dataSource
+    };
+  }
+
+  UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    const { dataSource } = nextProps;
+
+    this.setState({
+      data: dataSource
+    });
+  }
+
   render() {
-    const { dataSource, logo, title } = this.props;
-    if (!dataSource || dataSource.length === 0) return null;
+    const { logo, title } = this.props;
+    const { data } = this.state;
+
+    if (!data || data.length === 0) return null;
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -33,12 +56,12 @@ export default class DetailHeader extends React.PureComponent<Props, {}> {
               />
             ) : null
           }
-          <Text style={styles.text}>{dataSource.length}</Text>
+          <Text style={styles.text}>{data.length}</Text>
           <Text style={styles.text}>{title}</Text>
         </View>
         <View style={styles.ataversContainer}>
           {
-            dataSource.map((item, index) => {
+            data.map((item, index) => {
               return (
                 <Image
                   key={index}

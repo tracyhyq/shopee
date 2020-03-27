@@ -17,6 +17,8 @@ import { NavigationScreenProp } from 'react-navigation';
 import LogoTitle from '@components/Navigator/headerTitle';
 import HeaderRight from '@components/Navigator/headerRight';
 import HeaderLeft from '@components/Navigator/headerLeft';
+import Input from '@components/Input';
+import { toast } from '@components/Toast';
 import detailStore from './store';
 import { observer } from 'mobx-react';
 import styles from './style';
@@ -26,6 +28,9 @@ import Content from './Content';
 import Liker from './Liker';
 import CommentComponent from './Comment';
 import { Comment } from '@I/detail';
+import { IResponse } from '@I/index';
+import { User } from '@I/login';
+import Cookies from '@utils/cookie-util';
 
 interface Props {
   navigation: NavigationScreenProp<{}>;
@@ -35,7 +40,14 @@ interface State {
   eventId: number;
   currentTab: string;
   btnStyle: string;
+  commentPlaceHolder: string;
+  commentVal: string;
+  liked: boolean;
+  gone: boolean;
+  user: User | undefined;
 }
+
+const DEFAULT_PLACEHOLDER = 'Leave you comment here';
 
 const TabMap: TabItem[] = [
   {
@@ -89,16 +101,29 @@ export default class Detail extends React.Component<Props, State> {
       eventId,
       currentTab: 'Details',
       btnStyle: 'join',
+      commentPlaceHolder: DEFAULT_PLACEHOLDER,
+      commentVal: '',
+      liked: false,
+      gone: false,
+      user: undefined,
     };
   }
 
   async componentDidMount() {
+    const u = await Cookies.getCookie('user');
     await Promise.all([
       detailStore.getEvent(this.state.eventId),
       detailStore.getLikes(this.state.eventId),
       detailStore.getParticipants(this.state.eventId),
       detailStore.getComments(this.state.eventId)
     ]);
+
+    if (u) {
+      const user: User = JSON.parse(u);
+      this.setState({
+        user
+      });
+    }
   }
 
   renderTabs = () => {
@@ -175,7 +200,7 @@ export default class Detail extends React.Component<Props, State> {
   }
 
   renderBtns = () => {
-    const { btnStyle } = this.state;
+    const { btnStyle, liked, gone } = this.state;
     return (
       <View>
         {
@@ -191,8 +216,16 @@ export default class Detail extends React.Component<Props, State> {
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.like()}>
                   <Image
-                    source={require('@assets/svg/like-outline.svg')}
-                    style={[styles.btnIcon, styles.likeIcon]}
+                    source={
+                      liked ?
+                      require('@assets/svg/like.svg') : 
+                      require('@assets/svg/like-outline.svg')
+                    }
+                    style={[
+                      styles.btnIcon,
+                      styles.likeIcon,
+                      liked ? styles.unlike : null
+                    ]}
                   />
                 </TouchableOpacity>
               </View>
@@ -202,16 +235,53 @@ export default class Detail extends React.Component<Props, State> {
                   style={[styles.joinContainer, styles.joinRightContainer]}
                 >
                   <Image
-                    source={require('@assets/svg/check-outline.svg')}
-                    style={styles.btnIcon}
+                    source={
+                      gone ?
+                      require('@assets/svg/check.svg') :
+                      require('@assets/svg/check-outline.svg')
+                    }
+                    style={[
+                      styles.btnIcon,
+                      gone ? styles.gone : null
+                    ]}
                   />
-                  <Text style={styles.joinText}>Join</Text>
+                  <Text style={styles.joinText}>
+                    {gone ? 'I am going' : 'Join'}
+                  </Text>
                 </TouchableOpacity>
               </View>
             </View>
           ) : 
           (
-            <View></View>
+            <View style={styles.btnsContainer}>
+              <View style={[styles.joinContainer, styles.replyLeftContainer]}>
+                <TouchableOpacity onPress={() => this.cancelReply()}>
+                  <Image
+                    source={require('@assets/svg/cross.svg')}
+                    style={styles.crossIcon}
+                  />
+                </TouchableOpacity>
+                <Input
+                  style={styles.input}
+                  value={this.state.commentVal}
+                  placeholderTextColor='#D3C1E5'
+                  textInputStyle={styles.textInputStyle}
+                  placeholder={this.state.commentPlaceHolder}
+                  onChangeText={this.commentInputChange}
+                />
+              </View>
+              <View style={styles.replyRightContainer}>
+                <TouchableOpacity
+                  onPress={() => this.sendComment()}
+                  style={styles.replyRightContainer}
+                >
+                  <Image
+                    source={require('@assets/svg/send.svg')}
+                    style={styles.sendIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
           )
         }
       </View>
@@ -223,22 +293,91 @@ export default class Detail extends React.Component<Props, State> {
    */
   replyComment = (comment?: Comment) => {
     this.setState({
-      btnStyle: 'reply'
+      btnStyle: 'reply',
+      commentPlaceHolder: comment ? `@${comment?.author.username}` : DEFAULT_PLACEHOLDER,
     });
+  }
+
+  cancelReply = () => {
+    this.setState({
+      btnStyle: 'join',
+      commentPlaceHolder: DEFAULT_PLACEHOLDER
+    });
+  }
+
+  commentInputChange = (txt: string) => {
+    this.setState({
+      commentVal: txt
+    });
+  }
+
+  sendComment = async () => {
+    const { commentVal, commentPlaceHolder, eventId } = this.state;
+    const { navigation } = this.props;
+    let val = '';
+
+    if (!commentVal) {
+      toast('回复不能为空!');
+      return;
+    }
+    val = commentPlaceHolder.startsWith('@')
+          ? `${commentPlaceHolder} ${commentVal}`
+          : commentVal;
+    
+    const res = await detailStore.addComment(val, eventId, navigation);
+    if (res) {
+      detailStore.comments.unshift(res.data);
+      this.setState({
+        commentPlaceHolder: DEFAULT_PLACEHOLDER,
+        commentVal: ''
+      });
+      this.tabPress('Comments');
+    }
   }
 
   /**
    * like event
    */
-  like = () => {
+  like = async () => {
+    const { liked, eventId, user } = this.state;
+    const { navigation } = this.props;
 
+    // 已经点赞，需要取消
+    if (liked) {
+      await detailStore.cancelLike(eventId, navigation);
+      detailStore.likes.pop();
+    } else {
+      const res = await detailStore.addLike(eventId, navigation);
+      if (res && user) {
+        detailStore.likes.push(user);
+      }
+    }
+
+    this.setState({
+      liked: !liked
+    });
   }
 
   /**
    * join event
    */
-  join = () => {
+  join = async () => {
+    const { gone, eventId, user } = this.state;
+    const { navigation } = this.props;
+    // 已经参加，需要取消
+    if (gone) {
+      await detailStore.cancelGoing(eventId, navigation);
+      detailStore.participants.pop();
+    } else {
+      const res = await detailStore.addGoing(eventId, navigation);
+      if (res && user) {
+        detailStore.participants.push(user);
+      }
+    }
 
+    this.setState({
+      gone: !gone
+    });
   }
 
   /**
@@ -281,8 +420,8 @@ export default class Detail extends React.Component<Props, State> {
           { this.renderDetail() }
           { this.renderParticipants() }
           { this.renderComments() }
-          { this.renderBtns() }
         </ScrollView>
+        { this.renderBtns() }
       </View>
     );
   }

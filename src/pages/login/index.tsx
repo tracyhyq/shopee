@@ -103,8 +103,6 @@ export default class Login extends React.Component<Props, State> {
       Cookies.setCookie('x-token', result.token);
       Cookies.setCookie('user', JSON.stringify(result.user));
       navigation.navigate('Search', { clearFilter: true });
-    } else {
-      toast('登录失败!');
     }
   }
 
@@ -157,6 +155,7 @@ export default class Login extends React.Component<Props, State> {
               textInputStyle={{
                 color: globalStyle.color.white
               }}
+              placeholderTextColor='#AC8EC9'
               leftIconStyle={styles.leftIcon}
               placeholder="user@blackcat.co"
               onChangeText={this.usernameChange}
@@ -169,6 +168,7 @@ export default class Login extends React.Component<Props, State> {
               }}
               showClearIcon
               leftIconStyle={styles.leftIcon}
+              placeholderTextColor='#AC8EC9'
               placeholder="password"
               onChangeText={this.passwordChange}
               leftIcon={this.getLeftIcon('password')}

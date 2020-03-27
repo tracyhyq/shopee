@@ -2,7 +2,7 @@
  * @description: @styles/variables
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 22:44:22
+ * @LastEditTime: 2020-03-27 16:39:36
  */
 
 import { Dimensions, PixelRatio, StyleSheet } from 'react-native';
@@ -67,6 +67,7 @@ export const globalStyle = {
     /**
      * 按下时候的背景颜色
      */
+    like: '#FF5C5C',
     pressNormal: '#f8f8f8',
     active: '#E5F7A9',
     fontOrIconDisable: '#666',

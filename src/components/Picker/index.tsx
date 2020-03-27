@@ -162,7 +162,7 @@ export class Picker extends Component<IPickerProps> {
     }
   };
 
-  componentWillReceiveProps(nexProps: IPickerProps) {
+  UNSAFE_componentWillReceiveProps(nexProps: IPickerProps) {
     const { visible } = nexProps;
     if (visible) {
       this.show();

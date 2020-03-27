@@ -58,6 +58,13 @@ export default class Input extends React.Component<IInputProps, IState> {
     this.onChange('');
   };
 
+  UNSAFE_componentWillReceiveProps(nextProps: IInputProps) {
+    const { value } = this.props;
+    this.setState({
+      value: value || ''
+    });
+  }
+
   onChange = (text: string) => {
     const { onChangeText, useMoney, maxLength } = this.props;
     this.state.clearable = text.length > 0;
@@ -148,9 +155,6 @@ export default class Input extends React.Component<IInputProps, IState> {
           {...otherProps}
           value={value}
           onChangeText={this.onChange}
-          placeholderTextColor={
-            invalid ? globalStyle.color.lighter : globalStyle.color.disable
-          }
           onBlur={this.onBlur}
           editable={!disabled}
           style={[

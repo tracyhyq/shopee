@@ -14,7 +14,7 @@ import HomeScreen from './home';
 import DetailScreen from './detail';
 import SelectCityScreen from './select-city';
 import SearchScreen from './search';
-import SearchFilter from './search/searchFilter';
+import SearchFilter from './search/SearchFilter';
 import LoginScreen from './login';
 import commonStyle from '@styles/common';
 

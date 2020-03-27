@@ -2,7 +2,7 @@
  * @description: RootView
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 10:54:52
+ * @LastEditTime: 2020-03-27 11:36:47
  */
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
@@ -77,7 +77,7 @@ export class RootView extends Component<IProps, IState> {
     );
   };
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     if (Platform.OS === 'android') {
       // android ，多个页面入口使用了同一个引擎，这里不能移除监听。不然弹窗弹不出来。
     } else {

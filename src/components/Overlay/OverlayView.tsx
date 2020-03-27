@@ -2,7 +2,7 @@
  * @description: OverlayView
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-18 10:54:14
+ * @LastEditTime: 2020-03-27 11:36:38
  */
 import * as React from 'react';
 import { Component } from 'react';
@@ -170,7 +170,7 @@ export class OverlayView<
     this.appearAfterMount && this.appear();
   }
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.removeBackListener();
     if (this.closeEventHandler) {
       this.closeEventHandler.removeListener();

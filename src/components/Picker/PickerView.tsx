@@ -77,7 +77,7 @@ export class PickerView extends React.Component<IPickerViewProps, IState> {
     }
   };
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.clearTimer();
   }
 

@@ -255,7 +255,7 @@ export class BasePicker extends Component<IBasePickerProps, IState> {
     }
   };
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.clearScrollTimer();
     this.clearScrollToIndexTimer();
     this.clearChangeTimer();

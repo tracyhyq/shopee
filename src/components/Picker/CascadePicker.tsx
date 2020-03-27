@@ -106,7 +106,7 @@ export class CascadePicker extends Component<
     }
   };
 
-  componentWillUnmount() {
+  UNSAFE_componentWillUnmount() {
     this.clearChangeTimer();
   }
 

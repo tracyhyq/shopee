@@ -2,7 +2,7 @@
  * @description: search store
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-26 09:40:34
+ * @LastEditTime: 2020-03-27 14:41:14
  */
 
 import { observable, action, computed } from 'mobx';
@@ -10,6 +10,7 @@ import { GET } from '@utils/http-util';
 import { Channel, IFilter, IEvent, SearchResult } from '@I/search';
 import { IResponse } from '@I/index';
 import { DataProvider } from "recyclerlistview";
+import { doLoading } from '@utils/login-auth';
 
 interface IChannelRes extends IResponse {
   data: {
@@ -156,7 +157,7 @@ class LoginStore {
    */
   @action
   async getChannels() {
-    const res = await GET<IChannelRes>('/api/v1/channels');
+    const res = await doLoading(GET<IChannelRes>('/api/v1/channels'));
 
     if (res && res.data) {
       this.channels = res.data.channels;
@@ -165,9 +166,9 @@ class LoginStore {
 
   @action
   async getEvents() {
-    const res = await GET<ISearchRes>('/api/v1/events', {
+    const res = await doLoading(GET<ISearchRes>('/api/v1/events', {
       body: this.filter
-    });
+    }));
 
     if (res && res.data) {
       this.events = res.data.events;

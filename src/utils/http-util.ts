@@ -2,7 +2,7 @@
  * @description: http request util
  * @author: tracyqiu
  * @LastEditors: tracyqiu
- * @LastEditTime: 2020-03-24 17:03:01
+ * @LastEditTime: 2020-03-27 15:16:55
  */
 
 import config from '@config/index';
@@ -16,11 +16,11 @@ interface OP {
   [key: string]: any;
 }
 
-function createTimeout(ti: number): Promise<undefined> {
+function createTimeout(ti: number): Promise<any> {
   let dispatchTimeout = () => {};
   const timeout = ti || _timeout;
 
-  const timeoutPromise = new Promise<undefined>((resolve, reject) => {
+  const timeoutPromise = new Promise<any>((resolve, reject) => {
     dispatchTimeout = () => {
       reject('request timeout');
     };
@@ -33,8 +33,8 @@ function createTimeout(ti: number): Promise<undefined> {
   return timeoutPromise;
 }
 
-function createFetchPromise<R>(url: string, m: string, ...opts: any): Promise<R> {
-  const token = Cookies.getCookie('x-token');
+async function createFetchPromise<R>(url: string, m: string, ...opts: any): Promise<R> {
+  const token = await Cookies.getCookie('x-token');
   const options: OP = {
     method: m,
     headers: opts.headers || {
@@ -67,7 +67,7 @@ function createFetchPromise<R>(url: string, m: string, ...opts: any): Promise<R>
  * @param url 地址
  * @param opts 包含 headers、timeout 等等
  */
-export function GET<T>(url: string, ...opts: any): Promise<T | undefined> {
+export function GET<T>(url: string, ...opts: any): Promise<T> {
   const timeoutPromise = createTimeout(opts.timeout);
   const getPromise = createFetchPromise<T>(url, 'GET', ...opts);
 
@@ -80,9 +80,21 @@ export function GET<T>(url: string, ...opts: any): Promise<T | undefined> {
  * @param url 地址
  * @param opts headers、body、timeout 等等
  */
-export function POST<T>(url: string, ...opts: any): Promise<T | undefined> {
+export function POST<T>(url: string, ...opts: any): Promise<T> {
   const timeoutPromise = createTimeout(opts.timeout);
   const postPromise = createFetchPromise<T>(url, 'POST', ...opts);
+
+  return Promise.race([postPromise, timeoutPromise]);
+}
+
+/**
+ * post request
+ * @param url 地址
+ * @param opts headers、body、timeout 等等
+ */
+export function DELETE<T>(url: string, ...opts: any): Promise<T> {
+  const timeoutPromise = createTimeout(opts.timeout);
+  const postPromise = createFetchPromise<T>(url, 'DELETE', ...opts);
 
   return Promise.race([postPromise, timeoutPromise]);
 }
