@@ -28,7 +28,6 @@ import Content from './Content';
 import Liker from './Liker';
 import CommentComponent from './Comment';
 import { Comment } from '@I/detail';
-import { IResponse } from '@I/index';
 import { User } from '@I/login';
 import Cookies from '@utils/cookie-util';
 
@@ -52,15 +51,18 @@ const DEFAULT_PLACEHOLDER = 'Leave you comment here';
 const TabMap: TabItem[] = [
   {
     name: 'Details',
-    logoStr: require('@assets/svg/info-outline.svg')
+    logoStr: require('@assets/svg/info-outline.svg'),
+    activeLogo: require('@assets/svg/info.svg')
   },
   {
     name: 'Participants',
-    logoStr: require('@assets/svg/people-outline.svg')
+    logoStr: require('@assets/svg/people-outline.svg'),
+    activeLogo: require('@assets/svg/people.svg')
   },
   {
     name: 'Comments',
-    logoStr: require('@assets/svg/comment-outline.svg')
+    logoStr: require('@assets/svg/comment-outline.svg'),
+    activeLogo: require('@assets/svg/comment.svg')
   }
 ];
 

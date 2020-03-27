@@ -16,6 +16,7 @@ import SelectCityScreen from './select-city';
 import SearchScreen from './search';
 import SearchFilter from './search/SearchFilter';
 import LoginScreen from './login';
+import ProfileScreen from './profile';
 import commonStyle from '@styles/common';
 
 const DrawerWidth = Dimensions.get('window').width * 0.7;
@@ -50,7 +51,8 @@ const AppNavigator = createStackNavigator({
   Home: HomeScreen,
   Detail: DetailScreen,
   SelectCity: SelectCityScreen,
-  Login: LoginScreen
+  Login: LoginScreen,
+  Profile: ProfileScreen,
 }, {
   initialRouteName: 'Home',
   defaultNavigationOptions: {

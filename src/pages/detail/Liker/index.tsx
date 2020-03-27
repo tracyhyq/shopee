@@ -65,7 +65,7 @@ export default class DetailHeader extends React.Component<Props, State> {
               return (
                 <Image
                   key={index}
-                  source={require('@assets/imgs/gmap.png')}
+                  source={require('@assets/imgs/atavar.jpg')}
                   style={styles.ataver}
                 />
               );

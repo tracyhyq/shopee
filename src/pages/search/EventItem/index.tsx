@@ -29,7 +29,7 @@ export default class EventItem extends React.PureComponent<Props, {}> {
         <View style={styles.itemHeader}>
           <View style={styles.leftWrap}>
             <Image
-              source={require('@assets/imgs/gmap.png')}
+              source={require('@assets/imgs/atavar.jpg')}
               style={styles.userIcon}
             />
             <Text style={styles.username}>{evt.creator.username}</Text>

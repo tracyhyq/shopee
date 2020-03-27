@@ -61,7 +61,7 @@ export default class HeaderRight extends React.Component<Props, State> {
             user ?
             (
               <Image
-                source={require('@assets/imgs/gmap.png')}
+                source={require('@assets/imgs/atavar.jpg')}
                 style={styles.logo}
               />
             ) :

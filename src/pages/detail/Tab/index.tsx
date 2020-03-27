@@ -21,6 +21,8 @@ interface Props {
 export interface TabItem {
   name: string;
   logoStr: ImageSourcePropType;
+  activeLogo: ImageSourcePropType;
+  count?: number;
 }
 
 export default class DetailTab extends React.PureComponent<Props, {}> {
@@ -37,7 +39,7 @@ export default class DetailTab extends React.PureComponent<Props, {}> {
                   onPress={() => onTabPress(tab.name)}
                 >
                   <Image
-                    source={tab.logoStr}
+                    source={currentTab === tab.name ? tab.activeLogo : tab.logoStr}
                     style={[
                       styles.tabLogo,
                       currentTab === tab.name ? styles.logoActive : null
@@ -49,7 +51,7 @@ export default class DetailTab extends React.PureComponent<Props, {}> {
                       currentTab === tab.name ? styles.textActive : null
                     ]}
                   >
-                    {tab.name}
+                    {tab.count ? `${tab.count}  ${tab.name}` : tab.name}
                   </Text>
                   {
                     index !== 0 && index % 2 === 0 ? null : <Text style={styles.tabSplit}>|</Text>
